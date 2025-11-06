@@ -1,14 +1,13 @@
 from kivymd.uix.screen import MDScreen
 from kivy.lang import Builder
 from screens.get_theme import *
-from kivy.core.text import LabelBase
 from kivymd.toast import toast
 import smtplib,random
 from email.message import EmailMessage
 from kivymd.app import MDApp
 import threading
 from kivy.clock import Clock
-LabelBase.register(name="EmojiFont", fn_regular="assets/fonts/NotoColorEmoji-Regular.ttf")
+
 
 Home_screen_helper='''
 <HomeScreen>:
@@ -25,7 +24,6 @@ Home_screen_helper='''
             text: f"[b]{root.theme_greet}[/b]"
             markup: True
             font_style: "H2"
-            #font_name: "EmojiFont"
             pos_hint: {'center_x':0.5,'y':0.4}
             halign: 'center'
             valign: 'middle'
