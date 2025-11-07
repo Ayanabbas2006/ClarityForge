@@ -2,7 +2,8 @@ from kivymd.uix.screen import MDScreen
 from kivy.lang import Builder
 from screens.get_theme import *
 from kivymd.toast import toast
-import smtplib,random,enc_dcr
+import smtplib,random
+from screens import enc_dcr
 from email.message import EmailMessage
 from kivymd.app import MDApp
 import threading
@@ -95,6 +96,7 @@ Home_screen_helper='''
             pos_hint: {'center_x':0.3,'center_y':12}
             halign: 'center'
 
+        
 '''
 Builder.load_string(Home_screen_helper)
 
@@ -105,14 +107,14 @@ class HomeScreen(MDScreen):
     theme_color= theme()[0]
     theme_text= theme()[1]
     theme_greet= theme()[2]
-    count=0
-    def wait(self,tim=30):
-        count=tim
+
+    count=90
+    def wait(self,tim=90):
+        self.count=tim
         Clock.schedule_interval(self.update,1)
 
     def update(self,dt):
         if self.count>0:
-            print(self.count)
             self.count-=1
             self.ids.reset_text.text=f"Resend OTP in {self.count} seconds!"
         else:
@@ -123,7 +125,6 @@ class HomeScreen(MDScreen):
     def check_otp(self):
         otp=self.ids.otp.text
         if len(otp)==6:
-            self.ids.reset_text.pos_hint={'center_x':0.3,'center_y':0.35}
             try:
                 if str(otp)==str(MDApp.get_running_app.number):
                     toast('Email Verified Successfully!')
@@ -131,23 +132,19 @@ class HomeScreen(MDScreen):
                     if self.ids.send_button:
                         self.ids.send_button.disabled=True
                         self.ids.otp.disabled=True
+                    self.ids.reset_text.pos_hint={'center_x':0.3,'center_y':12}
                     return
                 toast('OTP incorrect!')
                 print('OTP incorrect!')
-                self.ids.send_button.disabled=False
-                self.wait(tim=30)
             except:
                 self.ids.send_button.disabled=False
-                self.wait(tim=30)
                 print("Trial mode")
-        else:
-            self.ids.reset_text.pos_hint={'center_x':0.3,'center_y':12}
 
     def send(self):
         print("Sending email")
         MDApp.get_running_app.number=random.randint(100000,999999)
         msg=EmailMessage()
-        msg['Subject']=f'Hello! {self.ids.name.text}, here is your OTP!'
+        msg['Subject']=f'{MDApp.get_running_app.number} is your OTP!'
         msg['From']='ilovenothing007@gmail.com'
         msg['To']=self.ids.email.text
         msg.set_content(f'''Hello! {self.ids.name.text}, here is your OTP!
@@ -162,7 +159,9 @@ Team ClarityForge''')
             smtp.login('ilovenothing007@gmail.com',key)
             smtp.send_message(msg)
     def send_otp(self):
+        self.ids.reset_text.pos_hint={'center_x':0.3,'center_y':0.35}
+        self.wait(tim=60)
         self.ids.send_button.disabled=True
-        #t=threading.Thread(target=self.send).start()
+        t=threading.Thread(target=self.send).start()
         toast("OTP send to your email!")
         print("Send OTP pressed!")
