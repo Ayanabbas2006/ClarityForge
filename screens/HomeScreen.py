@@ -144,7 +144,7 @@ class HomeScreen(MDScreen):
                     return
                 toast('OTP incorrect!')
                 print('OTP incorrect!')
-            except:
+            except Exception:
                 self.ids.send_button.disabled=False
                 print("Trial mode")
 
