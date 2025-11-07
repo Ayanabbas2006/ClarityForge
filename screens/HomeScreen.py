@@ -6,7 +6,7 @@ import smtplib,random
 from screens import enc_dcr
 from email.message import EmailMessage
 from kivymd.app import MDApp
-import threading
+import threading,os
 from kivy.clock import Clock
 
 
@@ -100,9 +100,6 @@ Home_screen_helper='''
 '''
 Builder.load_string(Home_screen_helper)
 
-import os
-
-# Get the path from environment variable or use relative path
 app_pass_path = os.environ.get(
     "APP_PASS_PATH",
     os.path.join(os.path.dirname(__file__), "../assets/app_pass.txt")
