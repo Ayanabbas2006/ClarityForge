@@ -20,11 +20,11 @@ def check(a,b):
         if Error[i]==name:
             print(f"Errorcode{i}:",Error[i],f"in {b}")
             sys.exit()
-    else:
+    code=str(random.randint(0,999))
+    while code in Error.keys():
         code=str(random.randint(0,999))
-        while code in Error.keys():
-            code=str(random.randint(0,999))
-        Error[code]=name
-        with open(matches,'w') as g:
-            g.write(str(Error))
-        check(a,b)
+    Error[code]=name
+    with open(matches,'w') as g:
+        g.write(str(Error))
+    check(a,b)
+
