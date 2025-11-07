@@ -1,5 +1,5 @@
 from datetime import datetime
-hour=int(str(datetime.now()).split()[1].split(':')[0])
+hour = datetime.now().hour
 
 def color(a: int,b: int,c: int)-> list:
     return [a/256,b/256,c/256,1]
