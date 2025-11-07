@@ -163,9 +163,13 @@ Thanks for using ClarityForge, developed by Mojiz Abbas and team.Your OTP for re
 Regards,
 Team ClarityForge''')
 
-        with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
-            smtp.login('ilovenothing007@gmail.com',key)
-            smtp.send_message(msg)
+        try:
+            with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
+                smtp.login('ilovenothing007@gmail.com',key)
+                smtp.send_message(msg)
+        except Exception as e:
+            toast("Failed to send OTP email. Please check your connection and try again.")
+            print(f"Error sending email: {e}")
     def send_otp(self):
         self.ids.reset_text.pos_hint={'center_x':0.3,'center_y':0.35}
         self.wait(tim=60)
