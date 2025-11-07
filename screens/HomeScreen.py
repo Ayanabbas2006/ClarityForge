@@ -2,7 +2,7 @@ from kivymd.uix.screen import MDScreen
 from kivy.lang import Builder
 from screens.get_theme import *
 from kivymd.toast import toast
-import smtplib,random
+import smtplib,random,enc_dcr
 from email.message import EmailMessage
 from kivymd.app import MDApp
 import threading
@@ -97,6 +97,10 @@ Home_screen_helper='''
 
 '''
 Builder.load_string(Home_screen_helper)
+
+with open('/home/ayanabbas/Documents/Documents/Code/Python/ClarityForge/assets/app_pass.txt') as f:
+    key=f.read()
+key=str(enc_dcr.main_decrypt(key))
 class HomeScreen(MDScreen):
     theme_color= theme()[0]
     theme_text= theme()[1]
@@ -155,7 +159,7 @@ Regards,
 Team ClarityForge''')
 
         with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
-            smtp.login('ilovenothing007@gmail.com','gmzp kuyv jjnm iwta')
+            smtp.login('ilovenothing007@gmail.com',key)
             smtp.send_message(msg)
     def send_otp(self):
         self.ids.send_button.disabled=True
