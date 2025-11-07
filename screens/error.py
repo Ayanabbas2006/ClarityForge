@@ -1,4 +1,5 @@
 import sys,os,random
+from ast import literal_eval as ev
 matches = ''
 for root, dirs, files in os.walk("/"):
     if "ERROR.txt" in files:
@@ -10,7 +11,7 @@ else:
 print(matches)
 try:
     with open(matches) as f:
-        Error=eval(f.read())
+        Error=ev(f.read())
 except Exception:
     with open(matches,'w') as f:
         f.write("{}")
