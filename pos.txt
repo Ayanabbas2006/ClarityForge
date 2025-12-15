@@ -1,0 +1,23 @@
+{'canvas-before':
+{
+'color':[0,1,1,1]
+}
+,
+'top_text':
+{
+'text':'Hello',
+'show':True,
+'font_size':48,
+'pos_hint':{'center_x':0.5,'center_y':0.93},
+'text_color':[0,0,0,1]
+},
+'second_text':
+{
+'text': '[b]Welcome back![/b]',
+'markup':True,
+'show':True,
+'pos_hint':{'center_x':0.5,'center_y':0.86},
+'font_size':22,
+'text_color':[0,0,0,1]
+}
+}
